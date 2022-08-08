@@ -1,0 +1,57 @@
+{% extends 'shop/admin_base.html' %}
+
+{% block main %}
+<div class="pagetitle">
+    <h1>Salesman Requests</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'shop:admin_dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item">Salesman Requests</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Salesman Requests</h5>
+            <!-- Table with stripped rows -->
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Full Name</th>
+                  <th scope="col">Contact No</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Joined Date</th>
+                  <th scope="col">Approve Request</th>
+                  <th scope="col">Remove Request</th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                {% for salesman in salesman_requests %}
+                <tr>
+                  <th scope="row">{{salesman.salesman.id}}</th>
+                  <td><a href="#">{{salesman.salesman.full_name}}</a></td>
+                  <td>{{salesman.salesman.contact_no}}</td>
+                  <td>{{salesman.salesman.address}}</td>
+                  <td>{{salesman.email}}</td>
+                  <td>{{salesman.date_joined}}</td>
+                  <td><a href="{% url 'shop:approve_salesman' salesman.id %}" onclick="return confirm('Are you sure?')">Approve</a></td>
+                  <td><a href="{% url 'shop:remove_salesman' salesman.id %}" onclick="return confirm('Are you sure?')">Remove</a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+{% endblock %}

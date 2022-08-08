@@ -1,0 +1,105 @@
+{% extends 'shop/admin_base.html' %}
+
+{% block main %}
+<div class="pagetitle">
+    <h1>Product List</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'shop:admin_dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item">Product List</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Product List</h5>
+            <!-- Table with stripped rows -->
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Sub Category</th>
+                  <th scope="col">Sub Sub Category</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Disc. Price</th>
+                  <th scope="col">Stock</th>
+                  <th scope="col">Color</th>
+                  <th scope="col">Featured</th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                {% for product in products %}
+                <tr>
+                  <th scope="row">{{product.id}}</th>
+                  <td><a href="{% url 'shop:product_detail' product.id %}">{{product.name}}</a></td>
+                  <td>{{product.category}}</td>
+                  <td>{{product.sub_category}}</td>
+                  <td>{{product.sub_sub_category}}</td>
+                  <td>{{product.price}}</td>
+                  <td>{{product.discounted_price}}</td>
+                  <td>{{product.stock}}</td>
+                  <td>{{product.color}}</td>
+                  <td>{{product.is_featured}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
+            <!-- Pagination
+
+            <nav aria-label="Page navigation example">
+              {% if products.has_other_pages %}
+              <ul class="pagination">
+                {% if products.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ products.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                {% endif %}
+                {% for page in products.paginator.page_range %}
+                {% if products.number == page %}
+                <li class="page-item active"><a class="page-link">{{page}}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if products.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ products.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+                {% endif %}
+              </ul>
+              {% endif %}
+            </nav>
+          -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+{% endblock %}

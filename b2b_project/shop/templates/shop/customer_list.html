@@ -1,0 +1,57 @@
+{% extends 'shop/admin_base.html' %}
+
+{% block main %}
+<div class="pagetitle">
+    <h1>Customer List</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'shop:admin_dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item">Customer List</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Customer List</h5>
+            <!-- Table with stripped rows -->
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Full Name</th>
+                  <th scope="col">Contact No</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Joined Date</th>
+                  <th scope="col">Last Login</th>
+                  <th scope="col">Block Customer</th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                {% for customer in customers %}
+                <tr>
+                  <th scope="row">{{customer.customer.id}}</th>
+                  <td><a href="#">{{customer.customer.full_name}}</a></td>
+                  <td>{{customer.customer.contact_no}}</td>
+                  <td>{{customer.customer.address}}</td>
+                  <td>{{customer.email}}</td>
+                  <td>{{customer.date_joined}}</td>
+                  <td>{{customer.last_login}}</td>
+                  <td><a href="{% url 'shop:block_customer' customer.id %}">Block Customer</a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+{% endblock %}

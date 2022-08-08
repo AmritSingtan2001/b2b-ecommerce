@@ -1,0 +1,54 @@
+{% extends 'shop/admin_base.html' %}
+
+{% block main %}
+
+<section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+         <div class="card">
+          <div class="card-header">
+            <h5 class="card-title" style="float: left;">Employee List</h5>
+            <h5 class="card-title" style="float: right;"><a href="{% url 'hrm:add_employee' %}" class="btn btn-success">Add Employee</a></h5>
+          </div>
+          
+            <div class="card-body">
+              
+              <!-- Table with stripped rows -->
+              <table class="table table-striped datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Designation</th>
+                    <th scope="col">Contact No.</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Joined Date</th>
+                    <th scope="col">Remove Employee</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for employee in employee_list %}
+                  <tr>
+                    <th scope="row">{{employee.full_name}}</th>
+                    <td>{{employee.designation}}</td>
+                    <td>{{employee.contact_no}}</td>
+                    <td>{{employee.email}}</td>
+                    <td>{{employee.address}}</td>
+                    <td>{{employee.salary}}</td>
+                    <td>{{employee.joined_date}}</td>
+                    <td><a href="{% url 'hrm:delete_employee' employee.id %} " onclick="return confirm('Are you sure?')">Delete</a></td>
+                  </tr>
+                  {% endfor%}
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+            </div>
+          </div>
+          </div>
+        </div>
+
+    </section>
+
+{% endblock %}

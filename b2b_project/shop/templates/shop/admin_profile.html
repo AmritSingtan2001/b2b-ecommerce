@@ -1,0 +1,198 @@
+{% extends 'shop/admin_base.html' %}
+
+{% block main %}
+    <div class="pagetitle">
+      <h1 style="text-align: center">Profile</h1>
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+      <div class="row">
+        <div class="col-xl-2">
+
+        </div>
+
+        <div class="col-xl-8">
+
+          <div class="card" style="min-height: 70vh;">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered">
+
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+                </li>
+
+              </ul>
+              <div class="tab-content pt-2">
+
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                  <h5 class="card-title">Profile Details</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                    {% if request.user.admin.full_name %}
+                    <div class="col-lg-9 col-md-8">{{request.user.admin.full_name}}</div>
+                    {% else %}
+                    <div class="col-lg-9 col-md-8">Not Available</div>
+                    {% endif %}
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Email</div>
+                    <div class="col-lg-9 col-md-8">{{request.user.email}}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Contact</div>
+                    {% if request.user.admin.contact_no %}
+                    <div class="col-lg-9 col-md-8">{{request.user.admin.contact_no}}</div>
+                    {% else %}
+                    <div class="col-lg-9 col-md-8">+977 1234567890</div>
+                    {% endif %}
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Address</div>
+                    {% if request.user.admin.address %}
+                    <div class="col-lg-9 col-md-8">{{request.user.admin.address}}</div>
+                    {% else %}
+                    <div class="col-lg-9 col-md-8">Not Available</div>
+                    {% endif %}
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Joined Date</div>
+                    <div class="col-lg-9 col-md-8">{{request.user.date_joined}}</div>
+                  </div>
+
+                </div>
+
+                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                  <!-- Profile Edit Form -->
+                  <form method="POST" action="{% url 'shop:admin_profile_edit' 'edit' %}">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                      <label for="full_name" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input type="text" class="form-control"name="full_name" value="{{request.user.admin.full_name}}" maxlength="100" required id="id_full_name">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="contact" class="col-md-4 col-lg-3 col-form-label">Contact No.</label>
+                      <div class="col-md-8 col-lg-9">
+                      <input type="tel" class = "form-control" name="contact_no" value="{{request.user.admin.contact_no}}" maxlength="128" required id="id_contact_no">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="address" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input type="text" class="form-control" name="address" value="{{request.user.admin.address}}" maxlength="200" required id="id_address">
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                  </form>
+
+                </div>
+
+                <div class="tab-pane fade pt-3" id="profile-settings">
+
+                  <!-- Settings Form -->
+                  <form>
+
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
+                      <div class="col-md-8 col-lg-9">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="changesMade" checked>
+                          <label class="form-check-label" for="changesMade">
+                            Changes made to your account
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="newProducts" checked>
+                          <label class="form-check-label" for="newProducts">
+                            Information on new products and services
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="proOffers">
+                          <label class="form-check-label" for="proOffers">
+                            Marketing and promo offers
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
+                          <label class="form-check-label" for="securityNotify">
+                            Security alerts
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                  </form><!-- End settings Form -->
+
+                </div>
+
+                <div class="tab-pane fade pt-3" id="profile-change-password">
+                  <!-- Change Password Form -->
+                  <form method="post" action="{% url 'account_change_password' %}">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input type="password" class="form-control" name="oldpassword" placeholder="Current Password" autocomplete="current-password" required id="id_oldpassword">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input type="password" class="form-control" name="password1" placeholder="New Password" autocomplete="new-password" required id="id_password1">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input type="password" class="form-control" name="password2" placeholder="New Password (again)" required id="id_password2">
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Change Password</button>
+                    </div>
+                  </form>
+                  <!-- End Change Password Form -->
+
+                </div>
+
+              </div><!-- End Bordered Tabs -->
+
+            </div>
+          </div>
+
+        </div>
+        <div class="col-xl-2">
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+  {% endblock %}

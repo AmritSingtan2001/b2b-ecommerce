@@ -1,0 +1,42 @@
+{% extends 'shop/admin_base.html' %}
+
+{% block main %}
+
+<section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Credits</h5>
+              <!-- Table with stripped rows -->
+              <table class="table table-striped datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Account</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for credit in credits %}
+                  <tr>
+                    <th scope="row">{{credit.id}}</th>
+                    <td>{{credit.customer.full_name}}</td>
+                    <td>Rs. {{credit.amount}}</td>
+                    <td><a href="#">View</a></td>
+                  </tr>
+                {% endfor%}
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+{% endblock %}

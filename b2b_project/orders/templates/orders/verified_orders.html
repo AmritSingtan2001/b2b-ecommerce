@@ -1,0 +1,88 @@
+{% extends 'shop/admin_base.html' %}
+
+{% block main %}
+
+<section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Verified Orders</h5>
+              <!-- Table with stripped rows -->
+              <table class="table table-striped datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Qty.</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Mark On Delivery</th>
+                    <th scope="col">Invoice</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for order in verified_orders %}
+                  <tr>
+                    <th scope="row">{{order.id}}</th>
+                    <td>{{order.user}}</td>
+                    <td>
+                        <table class="table table-borderless">
+                        {% for item in order.items.all %}
+                            <tr>
+                            <td>{{item.product.name}}</td>
+                            </tr>
+                        {% endfor%}
+                        </table>
+                    </td>
+                    <td>
+                        <table class="table table-borderless">
+                        {% for item in order.items.all %}
+                            <tr>
+                                {% if item.product.discounted_price%}
+                                <td>{{item.product.discounted_price}}</td>
+                                {% else %}
+                                <td>{{item.product.price}}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor%}
+                        </table>
+                    </td>
+                    <td>
+                        <table class="table table-borderless">
+                        {% for item in order.items.all %}
+                            <tr>
+                                <td>{{item.quantity}}</td>
+                            </tr>
+                        {% endfor%}
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                        {% for item in order.items.all %}
+                            <tr>
+                                <td>{{item.get_cost}}</td>
+                            </tr>
+                        {% endfor%}
+                        </table>
+                    </td>
+                    <td>{{order.get_total_cost}}</td>
+                    <td><a href="{% url 'orders:mark_on_delivery' order.id %}"> Mark On Delivery</a></td>
+                    <td><a href="{% url 'orders:order_invoice' order.id %}">view</a></td>
+                  </tr>
+                  {% endfor%}
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+{% endblock %}

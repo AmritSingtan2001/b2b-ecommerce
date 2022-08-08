@@ -1,0 +1,82 @@
+{% extends 'shop/admin_base.html' %}
+
+{% block main %}
+
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title" style="float: left;">Employee Attendance</h5>
+          <!-- 
+          <h5 class="card-title" style="float: right;"><a href="{% url 'hrm:add_employee' %}"
+              class="btn btn-success">View Attendances</a></h5>-->
+        </div>
+        <div class="card-body">
+          <form method="post" action="#">
+            <br>
+            <div class="float-start">
+              <input type="date" name="date" class="form-control">
+            </div>
+            <br>
+            <br>
+            <table class="table align-middle mb-0 bg-white ">
+              <thead class="bg-light">
+                <tr>
+                  <th>Employee</th>
+                  <th>Status</th>
+                  <th>First IN</th>
+                  <th>Last Out</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for employee in employee_list%}
+                    <tr>
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <div class="ms-3">
+                              <p class="fw-bold mb-1">{{employee.full_name}}</p>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="btn-group">
+                            <input type="radio" class="btn-check" name="option{{forloop.counter}}" id="option1{{forloop.counter}}" autocomplete="off" value="present"/>
+                            <label class="btn btn-primary" for="option1{{forloop.counter}}" onclick="enableInput('in-time{{forloop.counter}}','out-time{{forloop.counter}}')">Present</label>
+      
+                            <input type="radio" class="btn-check" name="option{{forloop.counter}}" id="option2{{forloop.counter}}" autocomplete="off" value="absent"/>
+                            <label class="btn btn-danger" for="option2{{forloop.counter}}" onclick="disableInput('in-time{{forloop.counter}}','out-time{{forloop.counter}}')">Absent</label>
+                          </div>
+                        </td>
+                        <td>
+                          <input type="time" name="in-time{{forloop.counter}}"  id="in-time{{forloop.counter}}" class="form-control">
+                        </td>
+                        <td>
+                          <input type="time" name="out-time{{forloop.counter}}" id="out-time{{forloop.counter}}" class="form-control">
+                        </td>
+                    </tr>
+                    {% endfor %}
+              </tbody>
+            </table><br>
+            <div class="float-end">
+                <input type="submit" name="submit" class="btn btn-success">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+<script type="text/javascript">
+  function disableInput(firstin, lastOut){
+    document.getElementById(firstin).disabled=true;
+    document.getElementById(lastout).disabled=true;
+  }
+
+  function enableInput(firstin, lastout){
+    document.getElementById(firstin).disabled=false;
+    document.getElementById(lastout).disabled=false;
+  }
+</script>
+{% endblock %}

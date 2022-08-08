@@ -1,0 +1,11 @@
+<h1>
+    Order Placed
+</h1>
+
+<strong>Total Bill: {{order.get_total_cost}}</strong>
+<strong>Items:</strong>
+<ul>
+    {% for item in order.items.all %}
+    <li><strong>{{item.product.name}}</strong> | Qty:{{item.quantity}} | Amount: {{item.get_cost}}</li>
+    {% endfor%}
+</ul>
